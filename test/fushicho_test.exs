@@ -23,12 +23,12 @@ defmodule FushichoTest do
   end
 
   test "check html scaffolding" do
-    name = "hoge"
+    name = "name"
     assert Mix.Tasks.Fushicho.create_html(name)
   end
 
   test "check js scaffolding" do
-    name = "hoge"
+    name = "name"
     assert Mix.Tasks.Fushicho.create_js(name)
     # assert Fushicho.sum(1, 1) == 2
   end

@@ -1,4 +1,7 @@
 defmodule Mix.Tasks.Fushicho do
+  # for calling local methods
+  use Mix.Task
+
   @moduledoc """
   Provides math-related functions.
 
@@ -15,14 +18,17 @@ defmodule Mix.Tasks.Fushicho do
   Run task. 
    """
    def run(args) do
-      IO.puts (inspect args)
+     #  IO.puts (inspect args)
+     name = Enum.at(args, 0)
+     create_html(name)
+     create_js(name)
    end
 
    @doc """
    Check  Phoenix file.
    """
     def checkPhoenix() do
-        File.dir? "web/static/js"
+       File.dir? "web/static/js"
     end
 
   @doc """
@@ -34,7 +40,11 @@ defmodule Mix.Tasks.Fushicho do
       File.mkdir path <> "/" <> name
        # ファイル開く
       {:ok, file} = File.open path <> "/" <> name <> "/index.html.eex", [:write]
-       IO.binwrite file, "htmlファイル"
+      contain = """
+      <!-- React -->
+      <div id="main"></div>
+      """
+       IO.binwrite file, contain
       true
    end
 
@@ -44,10 +54,19 @@ defmodule Mix.Tasks.Fushicho do
    def create_js(name) do
       path = "web/static/js/"
       filename = path <> name <> ".js"
-       # ファイル開く
-       {:ok, file} = File.open filename, [:write]
-        IO.binwrite file, "jsファイルだ"
-        true
+      # ファイル開く
+      {:ok, file} = File.open filename, [:write]
+      contain = """
+      import React from 'react'
+      import ReactDOM from 'react-dom'
+      import request from 'superagent';
+
+      class Hoge extends React.Component {
+
+      }
+      """
+       IO.binwrite file, contain
+       true
     end
 
      def sum(a, b) do

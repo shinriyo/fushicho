@@ -31,6 +31,9 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   `web/static/js/`のフォルダが一瞬作られて後で消してくれます。
   必ず一回通してください。
 
+ 実際の実行は引数`name`
+  `mix fushicho name`
+
  2. ビルドするのは`mix archive.build`
 
  ezファイルを作成される。
