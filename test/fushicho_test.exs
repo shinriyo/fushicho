@@ -13,7 +13,7 @@ defmodule FushichoTest do
     on_exit fn ->
       IO.puts "finish"
       # 後始末
-      File.rm_rf "web"
+      # File.rm_rf "web"
     end
   end
 
@@ -24,6 +24,8 @@ defmodule FushichoTest do
 
   test "check scaffolding" do
     IO.puts "check scaffolding"
-    assert Fushicho.sum(1, 1) == 2
+    name = "hoge"
+    assert Fushicho.new(name)
+    # assert Fushicho.sum(1, 1) == 2
   end
 end
