@@ -18,17 +18,24 @@ defmodule Mix.Tasks.Fushicho do
   Run task. 
    """
    def run(args) do
-     #  IO.puts (inspect args)
-     name = Enum.at(args, 0)
-     create_html(name)
-     create_js(name)
+     IO.puts ("Scaffolding...")
+     unless checkPhoenix() do
+        IO.puts ("no phoenix project...")
+     else
+        name = Enum.at(args, 0)
+        create_html(name)
+        create_js(name)
+     end
    end
 
    @doc """
    Check  Phoenix file.
    """
     def checkPhoenix() do
-       File.dir? "web/static/js"
+      static = File.dir? "web/static/js"
+      template = File.dir? "web/templates"
+      # both
+      static && template
     end
 
   @doc """
