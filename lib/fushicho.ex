@@ -1,13 +1,22 @@
-defmodule Fushicho do
+defmodule Mix.Tasks.Fushicho do
   @moduledoc """
   Provides math-related functions.
 
   ## Examples
 
-      iex> Fushicho.sum(1, 2)
+      iex> Mix.Tasks.Fushicho.sum(1, 2)
       3
 
    """
+
+  @shortdoc "My mix command sample"
+
+   @doc """
+  Run task. 
+   """
+   def run(args) do
+      IO.puts (inspect args)
+   end
 
    @doc """
    Check  Phoenix file.
@@ -16,19 +25,32 @@ defmodule Fushicho do
         File.dir? "web/static/js"
     end
 
-     def sum(a, b) do
-        a + b
-    end
+  @doc """
+   Create index.html.eex file.
+   """
+   def create_html(name) do
+      path = "web/templates"
+      # フォルダ作る
+      File.mkdir path <> "/" <> name
+       # ファイル開く
+      {:ok, file} = File.open path <> "/" <> name <> "/index.html.eex", [:write]
+       IO.binwrite file, "htmlファイル"
+      true
+   end
 
    @doc """
    Create React's js file.
    """
-   def new(name) do
+   def create_js(name) do
       path = "web/static/js/"
       filename = path <> name <> ".js"
        # ファイル開く
        {:ok, file} = File.open filename, [:write]
-        IO.binwrite file, "world"
+        IO.binwrite file, "jsファイルだ"
         true
+    end
+
+     def sum(a, b) do
+        a + b
     end
 end
