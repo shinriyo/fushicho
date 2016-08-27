@@ -1,5 +1,17 @@
 defmodule Fushicho do
-    # Phoenixあるかチェック
+  @moduledoc """
+  Provides math-related functions.
+
+  ## Examples
+
+      iex> Fushicho.sum(1, 2)
+      3
+
+   """
+
+   @doc """
+   Check  Phoenix file.
+   """
     def checkPhoenix() do
         File.dir? "web/static/js"
     end
@@ -8,6 +20,9 @@ defmodule Fushicho do
         a + b
     end
 
+   @doc """
+   Create React's js file.
+   """
    def new(name) do
       path = "web/static/js/"
       filename = path <> name <> ".js"
