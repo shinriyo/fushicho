@@ -18,11 +18,12 @@ defmodule FushichoTest do
   end
 
   test "check Phoenix project" do
-      IO.puts "nonono"
-    assert Fushicho.sum(1, 1) == 2
+    IO.puts "check Phoenix project"
+    assert Fushicho.checkPhoenix()
   end
 
   test "check scaffolding" do
+    IO.puts "check scaffolding"
     assert Fushicho.sum(1, 1) == 2
   end
 end
