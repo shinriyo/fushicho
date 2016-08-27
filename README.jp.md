@@ -2,27 +2,22 @@
 
 **Phoenix用scaffoldingシステム**
 
-## Installation
+## インストール
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
 
-  1. Add `fushicho` to your list of dependencies in `mix.exs`:
+  1. インストールコマンド`mix archive.install`を実行
 
-    ```elixir
-    def deps do
-      [{:fushicho, "~> 0.1.0"}]
-    end
-    ```
+ 例) `mix archive.install https://github.com/shinriyo/fushicho/releases/download/v0.1.0/fushicho_new-0.1.0.ez`
 
-  2. Ensure `fushicho` is started before your application:
+## 使用方法
 
-    ```elixir
-    def application do
-      [applications: [:fushicho]]
-    end
-    ```
+ 1. 対応するAPIを作成しておく
 
-   mix archive.install https://github.com/shinriyo/fushicho/releases/download/v0.1.0/fushicho_new-0.1.0.ez
+ 例)
+ `mix phoenix.gen.json Post posts title:string body:text`
+
+ 2. fushichoを実行
 
 ## 貢献
 
@@ -34,10 +29,19 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
  実際の実行は引数`name`
   `mix fushicho name`
 
- 2. ビルドするのは`mix archive.build`
+ 2. ビルドするのは`mix archive.build`で、インストールは`mix archive.install`
 
  ezファイルを作成される。
- 例) fushicho-0.1.0.ezが生成される。
+ 例) `fushicho-0.1.0.ez`が生成される。
 
- `mix archive.install`する。
-例 ) mix archive.install fushicho-0.1.0.ez
+  `mix archive.install`する。
+ 例) `mix archive.install fushicho-0.1.0.ez`
+
+ 3. アンインストールするのは`mix archive.uinstall`
+
+ バージョン指定必須。コマンド後に`Y`を選択。
+ 例) `mix archive.uninstall fushicho-0.1.0`
+
+## ライセンス
+
+ MITライセンスに従います
