@@ -53,10 +53,12 @@ defmodule Mix.Tasks.Fushicho do
      else
         contain = File.read! model_file
         # ex) field :title, :string
-        reg = ~r/field :(?<prefix>.*?), /
-        cap = Regex.named_captures(reg, contain)
-        # IO.puts (contain)
-        IO.inspect cap
+        reg = ~r/.*field :(.*),/U
+        cap = Regex.scan(reg, contain)
+        # 展開しながら
+        named_reg = ~r/.*feld :(?<fiels>.*?),/U
+        # fieldのキー
+        Enum.map(cap, fn(x) -> IO.inspect Enum.at(x, 1)  end)
      end
 
       path = "web/templates"
