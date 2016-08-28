@@ -44,6 +44,17 @@ defmodule Mix.Tasks.Fushicho do
    Create index.html.eex file.
    """
    def create_html(name) do
+     # modelファイル確認
+     model_file = "web/models/" <> name <> ".ex"
+     res = File.exists?(model_file)
+     unless res do
+        IO.puts ("no model file...")
+        IO.puts (model_file)
+     else
+       contain = File.read! model_file
+       IO.puts (contain)
+     end
+
       path = "web/templates"
       # フォルダ作る
       File.mkdir path <> "/" <> name
