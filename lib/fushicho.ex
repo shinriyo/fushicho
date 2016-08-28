@@ -76,7 +76,10 @@ defmodule Mix.Tasks.Fushicho do
         # 展開しながら
         named_reg = ~r/.*feld :(?<fiels>.*?),/U
         # fieldのキー
-        Enum.map(cap, fn(x) -> IO.puts Enum.at(x, 1)  end)
+        # Enum.map(cap, fn(x) -> IO.puts Enum.at(x, 1)  end)
+        list  = Enum.map(cap, fn(x) -> Enum.at(x, 1)  end)
+        # filedのlistが生成される
+        IO.inspect list
 
         # 実際にjs
         path = "web/static/js/"
