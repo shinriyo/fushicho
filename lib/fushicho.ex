@@ -44,23 +44,6 @@ defmodule Mix.Tasks.Fushicho do
    Create index.html.eex file.
    """
    def create_html(name) do
-     # modelファイル確認
-     model_file = "web/models/" <> name <> ".ex"
-     res = File.exists?(model_file)
-     unless res do
-        IO.puts ("no model file...")
-        IO.puts (model_file)
-     else
-        contain = File.read! model_file
-        # ex) field :title, :string
-        reg = ~r/.*field :(.*),/U
-        cap = Regex.scan(reg, contain)
-        # 展開しながら
-        named_reg = ~r/.*feld :(?<fiels>.*?),/U
-        # fieldのキー
-        Enum.map(cap, fn(x) -> IO.inspect Enum.at(x, 1)  end)
-     end
-
       path = "web/templates"
       # フォルダ作る
       File.mkdir path <> "/" <> name
@@ -78,21 +61,40 @@ defmodule Mix.Tasks.Fushicho do
    Create React's js file.
    """
    def create_js(name) do
-      path = "web/static/js/"
-      filename = path <> name <> ".js"
-      # ファイル開く
-      {:ok, file} = File.open filename, [:write]
-      contain = """
-      import React from 'react'
-      import ReactDOM from 'react-dom'
-      import request from 'superagent';
+     # modelファイル確認
+     model_file = "web/models/" <> name <> ".ex"
+     is_file_exist = File.exists?(model_file)
+     unless is_file_exist do
+        IO.puts ("no model file...")
+        IO.puts (model_file)
+        false
+     else
+        contain = File.read! model_file
+        # ex) field :title, :string
+        reg = ~r/.*field :(.*),/U
+        cap = Regex.scan(reg, contain)
+        # 展開しながら
+        named_reg = ~r/.*feld :(?<fiels>.*?),/U
+        # fieldのキー
+        Enum.map(cap, fn(x) -> IO.puts Enum.at(x, 1)  end)
 
-      class Hoge extends React.Component {
+        # 実際にjs
+        path = "web/static/js/"
+        filename = path <> name <> ".js"
+        # ファイル開く
+        {:ok, file} = File.open filename, [:write]
+        contain = """
+        import React from 'react'
+        import ReactDOM from 'react-dom'
+        import request from 'superagent';
 
-      }
-      """
-       IO.binwrite file, contain
-       true
+        class Hoge extends React.Component {
+
+        }
+        """
+        IO.binwrite file, contain
+        true
+     end
     end
 
      def sum(a, b) do
