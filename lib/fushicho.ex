@@ -30,13 +30,15 @@ defmodule Mix.Tasks.Fushicho do
 
    @doc """
    Check  Phoenix file.
-   """
-    def checkPhoenix() do
-      static = File.dir? "web/static/js"
-      template = File.dir? "web/templates"
-      # both
-      static && template
-    end
+  """
+  def checkPhoenix() do
+     static = File.dir? "web/static/js"
+     templates = File.dir? "web/templates"
+     controllers = File.dir? "web/controllers"
+     models = File.dir? "web/models"
+     # both
+     static && templates && controllers && models
+   end
 
   @doc """
    Create index.html.eex file.

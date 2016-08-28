@@ -5,11 +5,14 @@ defmodule FushichoTest do
   setup_all do
     IO.puts "now setup_all"
 
-   # テスト用フォルダ
+    # テスト用フォルダ
     File.mkdir "web"
     File.mkdir "web/static"
     File.mkdir "web/static/js"
     File.mkdir "web/templates/"
+    File.mkdir "web/templates/"
+    File.mkdir "web/controllers"
+    File.mkdir "web/models"
 
     # 後始末
     on_exit fn ->

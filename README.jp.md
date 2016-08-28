@@ -14,7 +14,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 
  1. 対応するAPIを作成しておく
 
- 例)
+ 例) titleとbodyがある
  `mix phoenix.gen.json Post posts title:string body:text`
 
  2. fushichoを実行
