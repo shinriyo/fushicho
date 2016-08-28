@@ -2,6 +2,9 @@ defmodule FushichoTest do
   use ExUnit.Case
   doctest Mix.Tasks.Fushicho
 
+  # 名前
+  @name "post"
+
   setup_all do
     IO.puts "now setup_all"
 
@@ -12,12 +15,34 @@ defmodule FushichoTest do
     File.mkdir "web/templates/"
     File.mkdir "web/templates/"
     File.mkdir "web/controllers"
-    File.mkdir "web/models"
+    model_path = "web/models"
+    File.mkdir model_path
+    # ファイル開く
+    {:ok, file} = File.open model_path <> "/" <> @name <> ".ex", [:write]
+    contain = """
+    defmodule Blog.Post do
+      use Blog.Web, :model
+
+      schema "posts" do
+        field :title, :string
+        field :body, :string
+
+        timestamps()
+      end
+
+      def changeset(struct, params \\ %{}) do
+        struct
+        |> cast(params, [:title, :body])
+        |> validate_required([:title, :body])
+      end
+    end
+    """
+    IO.binwrite file, contain
 
     # 後始末
     on_exit fn ->
       IO.puts "finish"
-      File.rm_rf "web"
+      # File.rm_rf "web"
     end
   end
 
@@ -26,13 +51,11 @@ defmodule FushichoTest do
   end
 
   test "check html scaffolding" do
-    name = "name"
-    assert Mix.Tasks.Fushicho.create_html(name)
+    assert Mix.Tasks.Fushicho.create_html(@name)
   end
 
   test "check js scaffolding" do
-    name = "name"
-    assert Mix.Tasks.Fushicho.create_js(name)
+    assert Mix.Tasks.Fushicho.create_js(@name)
     # assert Fushicho.sum(1, 1) == 2
   end
 end
