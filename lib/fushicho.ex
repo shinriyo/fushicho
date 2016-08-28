@@ -51,8 +51,12 @@ defmodule Mix.Tasks.Fushicho do
         IO.puts ("no model file...")
         IO.puts (model_file)
      else
-       contain = File.read! model_file
-       IO.puts (contain)
+        contain = File.read! model_file
+        # ex) field :title, :string
+        reg = ~r/field :(?<prefix>.*?), /
+        cap = Regex.named_captures(reg, contain)
+        # IO.puts (contain)
+        IO.inspect cap
      end
 
       path = "web/templates"
