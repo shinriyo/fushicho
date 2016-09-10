@@ -13,6 +13,7 @@ defmodule FushichoTest do
     File.mkdir "web/static"
     File.mkdir "web/static/js"
     File.mkdir "web/templates/"
+    File.mkdir "web/templates/layout"
     File.mkdir "web/templates/"
     File.mkdir "web/controllers"
     model_path = "web/models"
@@ -40,9 +41,10 @@ defmodule FushichoTest do
     IO.binwrite file, contain
 
     # 後始末
-    on_exit fn ->
+    on_exit fn -> 
       IO.puts "finish"
-      # File.rm_rf "web"
+      # 確認したいときは以下をコメントアウト
+      File.rm_rf "web"
     end
   end
 

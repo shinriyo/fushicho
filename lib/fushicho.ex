@@ -34,10 +34,11 @@ defmodule Mix.Tasks.Fushicho do
   def checkPhoenix() do
      static = File.dir? "web/static/js"
      templates = File.dir? "web/templates"
+     layout = File.dir? "web/templates/layout"
      controllers = File.dir? "web/controllers"
      models = File.dir? "web/models"
      # both
-     static && templates && controllers && models
+     static && templates && layout  && controllers && models
    end
 
   @doc """
@@ -46,14 +47,15 @@ defmodule Mix.Tasks.Fushicho do
    def create_html(name) do
       path = "web/templates"
       # フォルダ作る
-      File.mkdir path <> "/" <> name
-       # ファイル開く
-      {:ok, file} = File.open path <> "/" <> name <> "/index.html.eex", [:write]
+      # File.mkdir path <> "/" <> name
+      # ファイル開く
+      {:ok, file} = File.open path <> "/" <> name <> ".html.eex", [:write]
       contain = """
-      <!-- React -->
-      <div id="main"></div>
+      <script src="<%= static_path(@conn, "/js/~s.js") %>"></script>
       """
-       IO.binwrite file, contain
+      # 修正
+      fix = :io_lib.format(contain, [name])
+      IO.binwrite file, fix
       true
    end
 
@@ -86,6 +88,8 @@ defmodule Mix.Tasks.Fushicho do
         filename = path <> name <> ".js"
         # ファイル開く
         {:ok, file} = File.open filename, [:write]
+
+        # Reactコードの中身
         contain = """
         import React from 'react'
         import ReactDOM from 'react-dom'
