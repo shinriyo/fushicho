@@ -172,6 +172,15 @@ defmodule Mix.Tasks.Fushicho do
     css_spinner_path = "web/static/assets/css/cssloader.css"
     {:ok, file} = File.open css_spinner_path, [:write]
     IO.binwrite file, css_spinner
+    message = """
+    you should add them to your app.html.eex,
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" integrity="sha256-K3Njjl2oe0gjRteXwX01fQD5fkk9JFFBdUHy/h38ggY=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha256-2YQRJMXD7pIAPHiXr0s+vlRWA7GYJEK0ARns7k2sbHY=" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.10.3.custom/css/sunny/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/cssloader.css") %>">
+    """
+    IO.puts(message)
   end
 
    @doc """
@@ -228,6 +237,7 @@ defmodule Mix.Tasks.Fushicho do
         # Enum.map(cap, fn(x) -> IO.puts Enum.at(x, 1)  end)
         list  = Enum.map(cap, fn(x) -> Enum.at(x, 1)  end)
         # filedのlistが生成される
+        # これが実際のモデルのフィールドに相当する
         IO.inspect list
 
         # 実際にjs
