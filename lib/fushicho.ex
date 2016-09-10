@@ -23,10 +23,30 @@ defmodule Mix.Tasks.Fushicho do
         IO.puts ("no phoenix project...")
      else
         name = Enum.at(args, 0)
-        create_html(name)
-        create_js(name)
+        if name == "--init" do
+          initReact()
+        else
+          create_html(name)
+          create_js(name)
+        end
      end
    end
+
+  @doc """
+  Initialization
+  """
+  def initReact() do
+    IO.puts ("initialize...")
+    contain = """
+    /* This file is for your main application css. */
+    @media (min-width: 550px) {
+        .container  { max-width: 1400px; }
+    }
+    """
+    css = "web/static/css/app.css"
+    {:ok, file} = File.open css, [:write]
+    IO.binwrite file, contain
+  end
 
    @doc """
    Check  Phoenix file.
@@ -50,6 +70,7 @@ defmodule Mix.Tasks.Fushicho do
       # File.mkdir path <> "/" <> name
       # ファイル開く
       {:ok, file} = File.open path <> "/" <> name <> ".html.eex", [:write]
+      # ~sの部分が置換される
       contain = """
       <script src="<%= static_path(@conn, "/js/~s.js") %>"></script>
       """
@@ -90,16 +111,21 @@ defmodule Mix.Tasks.Fushicho do
         {:ok, file} = File.open filename, [:write]
 
         # Reactコードの中身
+        # ~sの部分が置換される
+        capitalized = String.capitalize(name)
         contain = """
         import React from 'react'
         import ReactDOM from 'react-dom'
         import request from 'superagent';
 
-        class Hoge extends React.Component {
-
+        class ~s extends React.Component {
+        ~s
         }
         """
-        IO.binwrite file, contain
+        # 修正
+        fix = :io_lib.format(contain, [capitalized, name])
+        # IO.binwrite file, fix
+        IO.puts(fix)
         true
      end
     end

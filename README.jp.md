@@ -26,6 +26,10 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   `web/static/js/`のフォルダが一瞬作られて後で消してくれます。
   必ず一回通してください。
 
+ 初期化は`--init`
+  `mix fushicho --init`
+
+ nameはmodelの単数形である。
  実際の実行は引数`name`
   `mix fushicho name`
 

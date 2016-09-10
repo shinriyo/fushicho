@@ -12,6 +12,7 @@ defmodule FushichoTest do
     File.mkdir "web"
     File.mkdir "web/static"
     File.mkdir "web/static/js"
+    File.mkdir "web/static/css"
     File.mkdir "web/templates/"
     File.mkdir "web/templates/layout"
     File.mkdir "web/templates/"
@@ -44,12 +45,16 @@ defmodule FushichoTest do
     on_exit fn -> 
       IO.puts "finish"
       # 確認したいときは以下をコメントアウト
-      File.rm_rf "web"
+     # File.rm_rf "web"
     end
   end
 
   test "check Phoenix project" do
     assert Mix.Tasks.Fushicho.checkPhoenix()
+  end
+
+  test "check html initialization" do
+    assert Mix.Tasks.Fushicho.initReact()
   end
 
   test "check html scaffolding" do
