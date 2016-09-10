@@ -26,7 +26,6 @@ defmodule Mix.Tasks.Fushicho do
         if name == "--init" do
           initReact()
         else
-          create_html(name)
           create_js(name)
         end
      end
@@ -177,7 +176,7 @@ defmodule Mix.Tasks.Fushicho do
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" integrity="sha256-K3Njjl2oe0gjRteXwX01fQD5fkk9JFFBdUHy/h38ggY=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha256-2YQRJMXD7pIAPHiXr0s+vlRWA7GYJEK0ARns7k2sbHY=" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.10.3.custom/css/sunny/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/cssloader.css") %>">
     """
     IO.puts(message)
@@ -194,25 +193,6 @@ defmodule Mix.Tasks.Fushicho do
      models = File.dir? "web/models"
      # both
      static && templates && layout  && controllers && models
-   end
-
-  @doc """
-   Create index.html.eex file.
-   """
-   def create_html(name) do
-      path = "web/templates"
-      # フォルダ作る
-      # File.mkdir path <> "/" <> name
-      # ファイル開く
-      {:ok, file} = File.open path <> "/" <> name <> ".html.eex", [:write]
-      # ~sの部分が置換される
-      contain = """
-      <script src="<%= static_path(@conn, "/js/~s.js") %>"></script>
-      """
-      # 修正
-      fix = :io_lib.format(contain, [name])
-      IO.binwrite file, fix
-      true
    end
 
    @doc """

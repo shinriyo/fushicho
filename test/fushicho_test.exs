@@ -58,10 +58,6 @@ defmodule FushichoTest do
     assert Mix.Tasks.Fushicho.initReact()
   end
 
-  test "check html scaffolding" do
-    assert Mix.Tasks.Fushicho.create_html(@name)
-  end
-
   test "check js scaffolding" do
     assert Mix.Tasks.Fushicho.create_js(@name)
     # assert Fushicho.sum(1, 1) == 2
