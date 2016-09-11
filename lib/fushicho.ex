@@ -274,7 +274,7 @@ defmodule Mix.Tasks.Fushicho do
         # title:"",
         # category:"",
         editing_content = field_list
-        |> Enum.map_join("\n                        ", fn e  -> :io_lib.format("~s:\"\",", [e]) end)
+        |> Enum.map_join("\n                ", fn e  -> :io_lib.format("~s:\"\",", [e]) end)
         IO.puts(editing_content)
 
         # handleChangeの引数
@@ -371,8 +371,7 @@ defmodule Mix.Tasks.Fushicho do
                 return {
                     ~s: [],
                     editing~s: {
-                        title:"",
-                        category:"",
+                        ~s
                     },
                     search:"",
                     message:""
@@ -552,7 +551,8 @@ defmodule Mix.Tasks.Fushicho do
         # 修正
         fix = :io_lib.format(contain,
           [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
-          th_content, capitalized, label_content, name, name, name, name, on_change_conent, capitalized, plural, name,
+          th_content, capitalized, label_content, name, name, name, name, on_change_conent, capitalized, plural, capitalized,
+          editing_content,
           capitalized, plural, plural, capitalized, name, capitalized,
           capitalized_plural, capitalized_plural, capitalized_plural,
           name, plural, capitalized, name, capitalized, capitalized
