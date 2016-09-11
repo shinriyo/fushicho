@@ -174,7 +174,7 @@ defmodule Mix.Tasks.Fushicho do
     {:ok, file} = File.open css_spinner_path, [:write]
     IO.binwrite file, css_spinner
     message = """
-    you should add them to your web/templates/lauout/app.html.eex,
+    you should add them to your "web/templates/lauout/app.html.eex"
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" integrity="sha256-K3Njjl2oe0gjRteXwX01fQD5fkk9JFFBdUHy/h38ggY=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha256-2YQRJMXD7pIAPHiXr0s+vlRWA7GYJEK0ARns7k2sbHY=" crossorigin="anonymous" />
