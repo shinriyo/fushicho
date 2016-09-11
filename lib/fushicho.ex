@@ -229,7 +229,8 @@ defmodule Mix.Tasks.Fushicho do
     {:ok, file} = File.open css_spinner_path, [:write]
     IO.binwrite file, css_spinner
     message = """
-    you should add them to your "web/templates/lauout/app.html.eex"
+
+    You should add them to your "web/templates/lauout/app.html.eex".
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" integrity="sha256-K3Njjl2oe0gjRteXwX01fQD5fkk9JFFBdUHy/h38ggY=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha256-2YQRJMXD7pIAPHiXr0s+vlRWA7GYJEK0ARns7k2sbHY=" crossorigin="anonymous" />
@@ -607,7 +608,7 @@ defmodule Mix.Tasks.Fushicho do
             },
         });
 
-        ReactDOM.render(<~sPanel url='/api/~s/' />, document.getElementById('content'));
+        ReactDOM.render(<~sPanel url='/api/~s/' />, document.getElementById('~s-content'));
         """
         # 修正
         fix = :io_lib.format(contain,
@@ -619,20 +620,24 @@ defmodule Mix.Tasks.Fushicho do
           name, plural, capitalized, name, func_args, capitalized, set_state_content, capitalized,
           capitalized, capitalized_plural, plural, capitalized, capitalized, name, capitalized, name, capitalized_plural,
           name, capitalized, name, capitalized_plural, capitalized, capitalized, name, capitalized, capitalized_plural,
-          capitalized, plural
-          ])
+          capitalized, plural, name]
+        )
         IO.binwrite file, fix
 
         message = """
-        add "web/static/js/~s" to your brunch-config.js autoRequire's array
+        Add "web/static/js/~s" to your brunch-config.js autoRequire's array.
 
         modules: {
           autoRequire: {
             "js/app.js": ["web/static/js/app", "web/static/js/~s"]
           }
         },
+
+        And also add the div tag yo your *.eex file.
+
+        <div class="container" id="~s-content"></div>
         """
-        fixed_message = :io_lib.format(message, [plural, plural])
+        fixed_message = :io_lib.format(message, [name, name, name])
         IO.puts(fixed_message)
         true
      end
