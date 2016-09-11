@@ -238,6 +238,10 @@ defmodule Mix.Tasks.Fushicho do
         td_content = field_list
         |> Enum.map_join("\n", fn e  -> :io_lib.format("<td>{this.props.~s.~s}</td>", [name, e]) end)
 
+        # 以下の様な<th>の生成
+        # <th>Title</th>
+        # <th>Category</th>
+
         contain = """
         import React from 'react';
         var ReactDOM = require('react-dom');
@@ -275,12 +279,12 @@ defmodule Mix.Tasks.Fushicho do
             }
         });
 
-        var BookTable = React.createClass({
+        var ~sTable = React.createClass({
             render: function() {
                 var rows = [];
-                for(var i = 0; i < this.props.books.length; i++) {
-                    var book = this.props.books[i];
-                    rows.push(<BookTableRow key={book.id} book={book} handleEditClickPanel={this.props.handleEditClickPanel}  />);
+                for(var i = 0; i < this.props.~s.length; i++) {
+                    var ~s = this.props.~s[i];
+                    rows.push(<~sTableRow key={~s.id} ~s={~s} handleEditClickPanel={this.props.handleEditClickPanel}  />);
                 }
                 return (
                     <table>
@@ -430,12 +434,10 @@ defmodule Mix.Tasks.Fushicho do
             handleSubmitClick: function(e) {
                 e.preventDefault();
                 if(this.state.editingBook.id) {
-                    // 編集
                     $.ajax({
                         url: this.props.url+this.state.editingBook.id,
                         dataType: 'json',
                         method: 'PUT',
-                        // これら必須
                         contentType: 'application/json',
                         beforeSend: function(req) {
                             req.setRequestHeader('Accept', 'application/json');
@@ -461,7 +463,6 @@ defmodule Mix.Tasks.Fushicho do
                         url: this.props.url,
                         dataType: 'json',
                         method: 'POST',
-                        // data:this.state.editingBook,
                         data: JSON.stringify({book:this.state.editingBook}),
                         contentType: 'application/json',
                         beforeSend: function(req) {
@@ -512,7 +513,8 @@ defmodule Mix.Tasks.Fushicho do
         ReactDOM.render(<BookPanel url='/api/books/' />, document.getElementById('content'));
         """
         # 修正
-        fix = :io_lib.format(contain, [capitalized, td_content, name])
+        fix = :io_lib.format(contain,
+          [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name])
         IO.binwrite file, fix
 
         message = """
