@@ -302,7 +302,7 @@ defmodule Mix.Tasks.Fushicho do
             }
         });
 
-        var BookForm = React.createClass({
+        var ~sForm = React.createClass({
             render: function() {
                 return(
                     <form onSubmit={this.props.handleSubmitClick}>
@@ -516,7 +516,7 @@ defmodule Mix.Tasks.Fushicho do
         # 修正
         fix = :io_lib.format(contain,
           [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
-          th_content 
+          th_content, capitalized
           ])
         IO.binwrite file, fix
 
