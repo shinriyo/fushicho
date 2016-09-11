@@ -208,17 +208,26 @@ defmodule Mix.Tasks.Fushicho do
         false
      else
         contain = File.read! model_file
+
+        #  schema "posts" do
+        plural_reg = ~r/.*schema "(.*)"/U # 貪欲ではない
+        plulal_cap = Regex.scan(plural_reg, contain)
+        # これが複数形
+        plulal_list = Enum.map(plulal_cap, fn(x) -> Enum.at(x, 1)  end)
+        plural = plulal_list |> Enum.at(0)
+        # IO.puts plural 
+
         # ex) field :title, :string
         field_name_reg = ~r/.*field :(.*),/U # 貪欲ではない
         field_name_cap = Regex.scan(field_name_reg, contain)
-        field_list  = Enum.map(field_name_cap, fn(x) -> Enum.at(x, 1)  end)
         # これが実際のモデルのフィールドに相当する
+        field_list  = Enum.map(field_name_cap, fn(x) -> Enum.at(x, 1)  end)
         #IO.inspect field_list
 
         field_type_reg = ~r/.*field :.*, :(.*)/
         field_type_cap = Regex.scan(field_type_reg, contain)
-        type_list  = Enum.map(field_type_cap, fn(x) -> Enum.at(x, 1)  end)
         # これが実際のモデルのフィールドの型に相当する
+        type_list  = Enum.map(field_type_cap, fn(x) -> Enum.at(x, 1)  end)
         #IO.inspect type_list
 
         # Reactのjsを生成
@@ -232,9 +241,6 @@ defmodule Mix.Tasks.Fushicho do
 
         # 大文字開始
         capitalized = String.capitalize(name)
-
-        # 複数形(TODO: +sとは限らないが・・・)
-        plural = name <> "s"
 
         # 大文字複数形
         capitalized_plural = String.capitalize(plural)
