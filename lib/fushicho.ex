@@ -530,9 +530,9 @@ defmodule Mix.Tasks.Fushicho do
                     success: function(data) {
                         this.setState({
                             message: "Successfully deleted ~s!",
-                            editingBook: {}
+                            editing~s: {}
                         });
-                        this.reloadBooks('');
+                        this.reload~s('');
                     }.bind(this),
                     error: function(xhr, status, err) {
                         console.error(this.props.url, status, err.toString());
@@ -555,7 +555,7 @@ defmodule Mix.Tasks.Fushicho do
           capitalized_plural, capitalized_plural, capitalized_plural,
           name, plural, capitalized, name, func_args, capitalized, set_state_content, capitalized,
           capitalized, capitalized_plural, plural, capitalized, capitalized, name, capitalized, name, capitalized_plural,
-          name, capitalized, name, capitalized_plural, capitalized, capitalized, name
+          name, capitalized, name, capitalized_plural, capitalized, capitalized, name, capitalized, capitalized_plural
           ])
         IO.binwrite file, fix
 
