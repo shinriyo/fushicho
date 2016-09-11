@@ -520,7 +520,14 @@ defmodule Mix.Tasks.Fushicho do
         # 修正
         fix = :io_lib.format(contain, [capitalized, name])
         IO.binwrite file, fix
-        # IO.puts(fix)
+
+        message = """
+        add ~s to your brunch-config.js
+
+        joinTo: ["js/app.js", "js/~s.js"]
+        """
+        fixed_message = :io_lib.format(message, [name, name])
+        IO.puts(fixed_message)
         true
      end
     end
