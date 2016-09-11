@@ -233,8 +233,11 @@ defmodule Mix.Tasks.Fushicho do
         # 大文字開始
         capitalized = String.capitalize(name)
 
-        # 複数形
+        # 複数形(TODO: +sとは限らないが・・・)
         plural = name <> "s"
+
+        # 大文字複数形
+        capitalized_plural = String.capitalize(plural)
 
         # 以下の様な<td>の生成
         # <td>{this.props.book.title}</td>
@@ -373,7 +376,7 @@ defmodule Mix.Tasks.Fushicho do
                 );
             },
             componentDidMount: function() {
-                this.reloadBooks('');
+                this.reload~s('');
             },
             onSearchChanged: function(query) {
                 if (this.promise) {
@@ -383,14 +386,14 @@ defmodule Mix.Tasks.Fushicho do
                     search: query
                 });
                 this.promise = setTimeout(function () {
-                    this.reloadBooks(query);
+                    this.reload~s(query);
                 }.bind(this), 200);
             },
             onClearSearch: function() {
                 this.setState({
                     search: ''
                 });
-                this.reloadBooks('');
+                this.reload~s('');
             },
             handleEditClickPanel: function(id) {
                 var book = $.extend({}, this.state.books.filter(function(x) {
@@ -523,7 +526,8 @@ defmodule Mix.Tasks.Fushicho do
         fix = :io_lib.format(contain,
           [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
           th_content, capitalized, label_content, name, name, name, name, capitalized, plural, name,
-          capitalized, plural, plural, capitalized, name, capitalized
+          capitalized, plural, plural, capitalized, name, capitalized,
+          capitalized_plural, capitalized_plural, capitalized_plural
           ])
         IO.binwrite file, fix
 
