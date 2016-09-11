@@ -338,7 +338,7 @@ defmodule Mix.Tasks.Fushicho do
         # category:"",
         editing_content = field_list
         |> Enum.map_join("\n                ", fn e  -> :io_lib.format("~s:\"\",", [e]) end)
-        IO.puts(editing_content)
+        # IO.puts(editing_content)
 
         # handleChangeの引数
         # function(title, category)
