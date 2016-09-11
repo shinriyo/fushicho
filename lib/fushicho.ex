@@ -236,11 +236,13 @@ defmodule Mix.Tasks.Fushicho do
         # <td>{this.props.book.category}</td>
 
         td_content = field_list
-        |> Enum.map_join("\n", fn e  -> :io_lib.format("<td>{this.props.~s.~s}</td>", [name, e]) end)
+        |> Enum.map_join("\n                ", fn e  -> :io_lib.format("<td>{this.props.~s.~s}</td>", [name, e]) end)
 
         # 以下の様な<th>の生成
         # <th>Title</th>
         # <th>Category</th>
+        th_content = field_list
+        |> Enum.map_join("\n                        ", fn e  -> :io_lib.format("<th>~s</th>", [String.capitalize(e)]) end)
 
         contain = """
         import React from 'react';
@@ -269,7 +271,7 @@ defmodule Mix.Tasks.Fushicho do
             render: function() {
                 return (
                     <tr>
-                       ~s
+                        ~s
                         <td><a href='#' onClick={this.onClick}>Edit</a></td>
                     </tr>
                 );
@@ -290,8 +292,7 @@ defmodule Mix.Tasks.Fushicho do
                     <table>
                         <thead>
                             <tr>
-                                <th>Title</th>
-                                <th>Category</th>
+                                ~s
                                 <th>Edit</th>
                             </tr>
                         </thead>
@@ -514,7 +515,9 @@ defmodule Mix.Tasks.Fushicho do
         """
         # 修正
         fix = :io_lib.format(contain,
-          [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name])
+          [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
+          th_content 
+          ])
         IO.binwrite file, fix
 
         message = """
