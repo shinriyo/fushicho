@@ -317,9 +317,9 @@ defmodule Mix.Tasks.Fushicho do
                     <form onSubmit={this.props.handleSubmitClick}>
                         ~s
                         <br />
-                        <input type='submit' value={this.props.book.id?"Save (id = " +this.props.book.id+ ")":"Add"} />
-                        {this.props.book.id?<button onClick={this.props.handleDeleteClick}>Delete</button>:null}
-                        {this.props.book.id?<button onClick={this.props.handleCancelClick}>Cancel</button>:null}
+                        <input type='submit' value={this.props.~s.id?"Save (id = " +this.props.~s.id+ ")":"Add"} />
+                        {this.props.~s.id?<button onClick={this.props.handleDeleteClick}>Delete</button>:null}
+                        {this.props.~s.id?<button onClick={this.props.handleCancelClick}>Cancel</button>:null}
                         {this.props.message?<div>{this.props.message}</div>:null}
                     </form>
                 );
@@ -517,7 +517,7 @@ defmodule Mix.Tasks.Fushicho do
         # 修正
         fix = :io_lib.format(contain,
           [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
-          th_content, capitalized, label_content
+          th_content, capitalized, label_content, name, name, name, name
           ])
         IO.binwrite file, fix
 
