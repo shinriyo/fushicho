@@ -425,7 +425,7 @@ defmodule Mix.Tasks.Fushicho do
             },
             onChange: function() {
                 ~s
-                this.props.handleChange(title, category);
+                this.props.handleChange(~s);
             }
         });
 
@@ -613,7 +613,7 @@ defmodule Mix.Tasks.Fushicho do
         # 修正
         fix = :io_lib.format(contain,
           [capitalized, td_content, name, capitalized, plural, name, plural, capitalized, name, name, name,
-          th_content, capitalized, label_content, name, name, name, name, on_change_conent, capitalized, plural, capitalized,
+          th_content, capitalized, label_content, name, name, name, name, on_change_conent, func_args, capitalized, plural, capitalized,
           editing_content,
           capitalized, plural, plural, capitalized, name, capitalized,
           capitalized_plural, capitalized_plural, capitalized_plural,
