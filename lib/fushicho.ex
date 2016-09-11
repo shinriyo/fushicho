@@ -36,6 +36,61 @@ defmodule Mix.Tasks.Fushicho do
   """
   def initReact() do
     IO.puts ("initialize...")
+
+    # package.jsonを生成
+    package_json_path = "package.json"
+    package_json = """
+    {
+      "repository": {},
+      "license": "MIT",
+      "scripts": {
+        "deploy": "brunch build --production",
+        "watch": "brunch watch --stdin"
+      },
+      "dependencies": {
+        "phoenix": "file:deps/phoenix",
+        "phoenix_html": "file:deps/phoenix_html",
+        "superagent": "^1.7.2",
+        "history": "^1.17.0",
+        "jquery": "^2.1.4",
+        "react": "^0.14.7",
+        "babel-brunch": "~6.0.0",
+        "react-dom": "^0.14.7",
+        "react-notification": "^4.2.0",
+        "react-redux": "^4.4.0",
+        "react-router": "^1.0.3",
+        "react-router-redux": "^2.1.0",
+        "redux": "^3.3.1",
+        "redux-form": "^4.2.0",
+        "redux-thunk": "^1.0.3"
+      },
+      "devDependencies": {
+        "brunch": "2.7.4",
+        "clean-css-brunch": "~2.0.0",
+        "css-brunch": "~2.0.0",
+        "javascript-brunch": "~2.0.0",
+        "babel": "^6.3.26",
+        "babel-plugin-react-transform": "^2.0.0",
+        "babel-plugin-transform-object-rest-spread": "^6.3.13",
+        "babel-preset-es2015": "^6.3.13",
+        "babel-preset-react": "^6.3.13",
+        "babelify": "^7.2.0",
+        "es5-shim": "^4.5.9"
+      },
+      "babel": {
+        "presets": [
+          "es2015",
+          "react"
+        ],
+        "plugins": [
+          "transform-object-rest-spread"
+        ]
+      }
+    }
+    """
+    {:ok, file} = File.open package_json_path, [:write]
+    IO.binwrite file, package_json
+
     contain = """
     /* This file is for your main application css. */
     @media (min-width: 550px) {

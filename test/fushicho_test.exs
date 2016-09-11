@@ -46,7 +46,8 @@ defmodule FushichoTest do
     on_exit fn -> 
       IO.puts "finish"
       # 確認したいときは以下をコメントアウト
-     # File.rm_rf "web"
+     File.rm_rf "web"
+     File.rm_rf "package.json"
     end
   end
 
