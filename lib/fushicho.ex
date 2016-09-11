@@ -612,7 +612,7 @@ defmodule Mix.Tasks.Fushicho do
         """
         # 修正
         fix = :io_lib.format(contain,
-          [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
+          [capitalized, td_content, name, capitalized, plural, name, plural, capitalized, name, name, name,
           th_content, capitalized, label_content, name, name, name, name, on_change_conent, capitalized, plural, capitalized,
           editing_content,
           capitalized, plural, plural, capitalized, name, capitalized,
