@@ -265,11 +265,11 @@ defmodule Mix.Tasks.Fushicho do
         # var title = ReactDOM.findDOMNode(this.refs.title).value;
         # var category = ReactDOM.findDOMNode(this.refs.category).value;
         on_change_conent = field_list
-        |> Enum.map_join("\n                        ",
+        |> Enum.map_join("\n        ",
           fn e  -> :io_lib.format("var ~s = ReactDOM.findDOMNode(this.refs.~s).value;",
           [e, e]
         ) end)
-        IO.puts(on_change_conent)
+        # IO.puts(on_change_conent)
 
         # handleChangeの引数
         # function(title, category)
@@ -355,8 +355,7 @@ defmodule Mix.Tasks.Fushicho do
                 );
             },
             onChange: function() {
-                var title = ReactDOM.findDOMNode(this.refs.title).value;
-                var category = ReactDOM.findDOMNode(this.refs.category).value;
+                ~s
                 this.props.handleChange(title, category);
             }
         });
@@ -547,7 +546,7 @@ defmodule Mix.Tasks.Fushicho do
         # 修正
         fix = :io_lib.format(contain,
           [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
-          th_content, capitalized, label_content, name, name, name, name, capitalized, plural, name,
+          th_content, capitalized, label_content, name, name, name, name, on_change_conent, capitalized, plural, name,
           capitalized, plural, plural, capitalized, name, capitalized,
           capitalized_plural, capitalized_plural, capitalized_plural,
           name, plural, capitalized, name, capitalized, capitalized
