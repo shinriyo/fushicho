@@ -8,7 +8,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 
   1. インストールコマンド`mix archive.install`を実行
 
- 例) `mix archive.install https://github.com/shinriyo/fushicho/releases/download/v0.1.0/fushicho_new-0.1.0.ez`
+ 例) `mix archive.install https://github.com/shinriyo/fushicho/releases/download/v0.1.0/fushicho-0.1.0.ez`
 
 ## 使用方法
 
