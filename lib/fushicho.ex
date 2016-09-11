@@ -396,21 +396,21 @@ defmodule Mix.Tasks.Fushicho do
                 this.reload~s('');
             },
             handleEditClickPanel: function(id) {
-                var book = $.extend({}, this.state.books.filter(function(x) {
+                var ~s = $.extend({}, this.state.~s.filter(function(x) {
                     return x.id == id;
                 })[0] );
                 
                 this.setState({
-                    editingBook: book,
+                    editing~s: ~s,
                     message: ''
                 });
             },
             handleChange: function(title, category) {
                 this.setState({
-                    editingBook: {
+                    editing~s: {
                         title: title,
                         category: category,
-                        id: this.state.editingBook.id
+                        id: this.state.editing~s.id
                     }
                 });
             },
@@ -527,7 +527,8 @@ defmodule Mix.Tasks.Fushicho do
           [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
           th_content, capitalized, label_content, name, name, name, name, capitalized, plural, name,
           capitalized, plural, plural, capitalized, name, capitalized,
-          capitalized_plural, capitalized_plural, capitalized_plural
+          capitalized_plural, capitalized_plural, capitalized_plural,
+          name, plural, capitalized, name, capitalized, capitalized
           ])
         IO.binwrite file, fix
 
