@@ -269,7 +269,13 @@ defmodule Mix.Tasks.Fushicho do
           fn e  -> :io_lib.format("var ~s = ReactDOM.findDOMNode(this.refs.~s).value;",
           [e, e]
         ) end)
-        # IO.puts(on_change_conent)
+
+        # 以下のもの
+        # title:"",
+        # category:"",
+        editing_content = field_list
+        |> Enum.map_join("\n                        ", fn e  -> :io_lib.format("~s:\"\",", [e]) end)
+        IO.puts(editing_content)
 
         # handleChangeの引数
         # function(title, category)
