@@ -357,11 +357,11 @@ defmodule Mix.Tasks.Fushicho do
                                 onSearchChanged={this.onSearchChanged}
                                 onClearSearch={this.onClearSearch}
                             />
-                            <BookTable books={this.state.books} handleEditClickPanel={this.handleEditClickPanel} />
+                            <~sTable ~s={this.state.~s} handleEditClickPanel={this.handleEditClickPanel} />
                         </div>
                         <div className="one-half column">
-                            <BookForm 
-                                book={this.state.editingBook} 
+                            <~sForm
+                                ~s={this.state.editing~s}
                                 message={this.state.message} 
                                 handleChange={this.handleChange}
                                 handleSubmitClick={this.handleSubmitClick}
@@ -522,7 +522,8 @@ defmodule Mix.Tasks.Fushicho do
         # 修正
         fix = :io_lib.format(contain,
           [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
-          th_content, capitalized, label_content, name, name, name, name, capitalized, plural, name
+          th_content, capitalized, label_content, name, name, name, name, capitalized, plural, name,
+          capitalized, plural, plural, capitalized, name, capitalized
           ])
         IO.binwrite file, fix
 
