@@ -440,10 +440,10 @@ defmodule Mix.Tasks.Fushicho do
             },
             handleCancelClick: function(e) {
                 this.setState({
-                    editingBook: {}
+                    editing~s: {}
                 });
             },    
-            reloadBooks: function(query) {
+            reload~s: function(query) {
                 $.ajax({
                     url: this.props.url,
                     dataType: 'json',
@@ -454,7 +454,7 @@ defmodule Mix.Tasks.Fushicho do
                     cache: false,
                     success: function(data) {
                         this.setState({
-                            books: data.data.reverse(),
+                            ~s: data.data.reverse(),
                             search: query
                         });
                     }.bind(this),
@@ -468,22 +468,22 @@ defmodule Mix.Tasks.Fushicho do
             },
             handleSubmitClick: function(e) {
                 e.preventDefault();
-                if(this.state.editingBook.id) {
+                if(this.state.editing~s.id) {
                     $.ajax({
-                        url: this.props.url+this.state.editingBook.id,
+                        url: this.props.url+this.state.editing~s.id,
                         dataType: 'json',
                         method: 'PUT',
                         contentType: 'application/json',
                         beforeSend: function(req) {
                             req.setRequestHeader('Accept', 'application/json');
                         },
-                        data: JSON.stringify({book:this.state.editingBook}),
+                        data: JSON.stringify({~s:this.state.editing~s}),
                         cache: false,
                         success: function(data) {
                             this.setState({
-                                message: "Successfully updated book!"
+                                message: "Successfully updated ~s!"
                             });
-                            this.reloadBooks('');
+                            this.reload~s('');
                         }.bind(this),
                         error: function(xhr, status, err) {
                             console.error(this.props.url, status, err.toString());
@@ -497,7 +497,7 @@ defmodule Mix.Tasks.Fushicho do
                         url: this.props.url,
                         dataType: 'json',
                         method: 'POST',
-                        data: JSON.stringify({book:this.state.editingBook}),
+                        data: JSON.stringify({~s:this.state.editing~s}),
                         contentType: 'application/json',
                         beforeSend: function(req) {
                             req.setRequestHeader('Accept', 'application/json');
@@ -505,9 +505,9 @@ defmodule Mix.Tasks.Fushicho do
                         cache: false,
                         success: function(data) {
                             this.setState({
-                                message: "Successfully added book!"
+                                message: "Successfully added ~s!"
                             });
-                            this.reloadBooks('');
+                            this.reload~s('');
                         }.bind(this),
                         error: function(xhr, status, err) {
                             console.error(this.props.url, status, err.toString());
@@ -518,18 +518,18 @@ defmodule Mix.Tasks.Fushicho do
                     });
                 }
                 this.setState({
-                    editingBook: {}
+                    editing~s: {}
                 });
             },
             handleDeleteClick: function(e) {
                 e.preventDefault();
                 $.ajax({
-                    url: this.props.url+this.state.editingBook.id,
+                    url: this.props.url+this.state.editing~s.id,
                     method: 'DELETE',
                     cache: false,
                     success: function(data) {
                         this.setState({
-                            message: "Successfully deleted book!",
+                            message: "Successfully deleted ~s!",
                             editingBook: {}
                         });
                         this.reloadBooks('');
@@ -553,7 +553,9 @@ defmodule Mix.Tasks.Fushicho do
           editing_content,
           capitalized, plural, plural, capitalized, name, capitalized,
           capitalized_plural, capitalized_plural, capitalized_plural,
-          name, plural, capitalized, name, func_args, capitalized, set_state_content, capitalized
+          name, plural, capitalized, name, func_args, capitalized, set_state_content, capitalized,
+          capitalized, capitalized_plural, plural, capitalized, capitalized, name, capitalized, name, capitalized_plural,
+          name, capitalized, name, capitalized_plural, capitalized, capitalized, name
           ])
         IO.binwrite file, fix
 
