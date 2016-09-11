@@ -220,9 +220,6 @@ defmodule Mix.Tasks.Fushicho do
         type_list  = Enum.map(field_type_cap, fn(x) -> Enum.at(x, 1)  end)
         # これが実際のモデルのフィールドの型に相当する
         #IO.inspect type_list
-        type_list
-        |> Enum.with_index
-        |> Enum.each(fn(x) -> IO.inspect elem(x, 1) end)
 
         # Reactのjsを生成
         path = "web/static/js/"
@@ -233,6 +230,14 @@ defmodule Mix.Tasks.Fushicho do
         # Reactコードの中身
         # ~sの部分が置換される
         capitalized = String.capitalize(name)
+
+        # 以下の様な<td>の生成
+        # <td>{this.props.book.title}</td>
+        # <td>{this.props.book.category}</td>
+
+        td_content = field_list
+        |> Enum.map_join("\n", fn e  -> :io_lib.format("<td>{this.props.~s.~s}</td>", [name, e]) end)
+
         contain = """
         import React from 'react';
         var ReactDOM = require('react-dom');
@@ -260,8 +265,7 @@ defmodule Mix.Tasks.Fushicho do
             render: function() {
                 return (
                     <tr>
-                        <td>{this.props.book.title}</td>
-                        <td>{this.props.book.category}</td>
+                       ~s
                         <td><a href='#' onClick={this.onClick}>Edit</a></td>
                     </tr>
                 );
@@ -278,10 +282,6 @@ defmodule Mix.Tasks.Fushicho do
                     var book = this.props.books[i];
                     rows.push(<BookTableRow key={book.id} book={book} handleEditClickPanel={this.props.handleEditClickPanel}  />);
                 }
-                // なぜかforEachできない
-                // this.props.books.forEach(function(book) {
-                //     rows.push(<BookTableRow key={book.id} book={book} handleEditClickPanel={this.props.handleEditClickPanel}  />);
-                // }.bind(this));
                 return (
                     <table>
                         <thead>
@@ -380,7 +380,6 @@ defmodule Mix.Tasks.Fushicho do
                 });
                 this.reloadBooks('');
             },
-            // Edit押下した瞬間
             handleEditClickPanel: function(id) {
                 var book = $.extend({}, this.state.books.filter(function(x) {
                     return x.id == id;
@@ -391,7 +390,6 @@ defmodule Mix.Tasks.Fushicho do
                     message: ''
                 });
             },
-            // 入力した瞬間
             handleChange: function(title, category) {
                 this.setState({
                     editingBook: {
@@ -408,10 +406,8 @@ defmodule Mix.Tasks.Fushicho do
             },    
             reloadBooks: function(query) {
                 $.ajax({
-                    // url: this.props.url+'?search='+query,
                     url: this.props.url,
                     dataType: 'json',
-                    // これら必須
                     contentType: 'application/json',
                     beforeSend: function(req) {
                         req.setRequestHeader('Accept', 'application/json');
@@ -461,14 +457,12 @@ defmodule Mix.Tasks.Fushicho do
                         }.bind(this)
                     });
                 } else {
-                    // 新規
                     $.ajax({
                         url: this.props.url,
                         dataType: 'json',
                         method: 'POST',
                         // data:this.state.editingBook,
                         data: JSON.stringify({book:this.state.editingBook}),
-                        // これら必須
                         contentType: 'application/json',
                         beforeSend: function(req) {
                             req.setRequestHeader('Accept', 'application/json');
@@ -518,7 +512,7 @@ defmodule Mix.Tasks.Fushicho do
         ReactDOM.render(<BookPanel url='/api/books/' />, document.getElementById('content'));
         """
         # 修正
-        fix = :io_lib.format(contain, [capitalized, name])
+        fix = :io_lib.format(contain, [capitalized, td_content, name])
         IO.binwrite file, fix
 
         message = """
