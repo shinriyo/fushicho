@@ -357,24 +357,6 @@ defmodule Mix.Tasks.Fushicho do
         var ReactDOM = require('react-dom');
         import $ from 'jquery';
 
-        var SearchPanel = React.createClass({
-            render: function() {
-                return (
-                    <div className="row">
-                        <div className="one-fourth column">
-                            Filter: &nbsp;
-                            <input ref='search' type='text' value={this.props.search} onChange={this.onSearchChanged} />
-                            {this.props.search?<button onClick={this.props.onClearSearch} >x</button>:null}
-                        </div>
-                    </div>
-                )
-            },
-            onSearchChanged: function() {
-                var query = ReactDOM.findDOMNode(this.refs.search).value;
-                this.props.onSearchChanged(query);
-            }
-        });
-
         var ~sTableRow = React.createClass({
             render: function() {
                 return (
@@ -436,7 +418,6 @@ defmodule Mix.Tasks.Fushicho do
                     editing~s: {
                         ~s
                     },
-                    search:"",
                     message:""
                 };
             },
@@ -444,11 +425,6 @@ defmodule Mix.Tasks.Fushicho do
                 return(
                     <div className="row">
                         <div className="one-half column">
-                            <SearchPanel
-                                search={this.state.search}
-                                onSearchChanged={this.onSearchChanged}
-                                onClearSearch={this.onClearSearch}
-                            />
                             <~sTable ~s={this.state.~s} handleEditClickPanel={this.handleEditClickPanel} />
                         </div>
                         <div className="one-half column">
@@ -465,23 +441,6 @@ defmodule Mix.Tasks.Fushicho do
                 );
             },
             componentDidMount: function() {
-                this.reload~s('');
-            },
-            onSearchChanged: function(query) {
-                if (this.promise) {
-                    clearInterval(this.promise)
-                }
-                this.setState({
-                    search: query
-                });
-                this.promise = setTimeout(function () {
-                    this.reload~s(query);
-                }.bind(this), 200);
-            },
-            onClearSearch: function() {
-                this.setState({
-                    search: ''
-                });
                 this.reload~s('');
             },
             handleEditClickPanel: function(id) {
@@ -518,8 +477,7 @@ defmodule Mix.Tasks.Fushicho do
                     cache: false,
                     success: function(data) {
                         this.setState({
-                            ~s: data.data.reverse(),
-                            search: query
+                            ~s: data.data.reverse()
                         });
                     }.bind(this),
                     error: function(xhr, status, err) {
@@ -616,7 +574,7 @@ defmodule Mix.Tasks.Fushicho do
           th_content, capitalized, label_content, name, name, name, name, on_change_conent, func_args, capitalized, plural, capitalized,
           editing_content,
           capitalized, plural, plural, capitalized, name, capitalized,
-          capitalized_plural, capitalized_plural, capitalized_plural,
+          capitalized_plural,
           name, plural, capitalized, name, func_args, capitalized, set_state_content, capitalized,
           capitalized, capitalized_plural, plural, capitalized, capitalized, name, capitalized, name, capitalized_plural,
           name, capitalized, name, capitalized_plural, capitalized, capitalized, name, capitalized, capitalized_plural,
