@@ -244,6 +244,15 @@ defmodule Mix.Tasks.Fushicho do
         th_content = field_list
         |> Enum.map_join("\n                        ", fn e  -> :io_lib.format("<th>~s</th>", [String.capitalize(e)]) end)
 
+        # 以下の様な<label>の生成
+        # <label forHtml='title'>Title</label><input ref='title' name='title' type='text' value={this.props.book.title} onChange={this.onChange}/>
+        label_content = field_list
+        |> Enum.map_join("\n                ",
+          fn e  -> :io_lib.format(
+            "<label forHtml='~s'>~s</label><input ref='~s' name='~s' type='text' value={this.props.~s.~s} onChange={this.onChange}/>",
+            [e, String.capitalize(e), e, e, name, e])
+        end)
+
         contain = """
         import React from 'react';
         var ReactDOM = require('react-dom');
@@ -306,14 +315,7 @@ defmodule Mix.Tasks.Fushicho do
             render: function() {
                 return(
                     <form onSubmit={this.props.handleSubmitClick}>
-                        <label forHtml='title'>Title</label><input ref='title' name='title' type='text' value={this.props.book.title} onChange={this.onChange}/>
-                        <label forHtml='category'>Category</label>
-                        <select ref='category' name='category' value={this.props.book.category} onChange={this.onChange} >
-                            <option value='CRIME' >Crime</option>
-                            <option value='HISTORY'>History</option>
-                            <option value='HORROR'>Horror</option>
-                            <option value='SCIFI'>SciFi</option>
-                        </select>
+                        ~s
                         <br />
                         <input type='submit' value={this.props.book.id?"Save (id = " +this.props.book.id+ ")":"Add"} />
                         {this.props.book.id?<button onClick={this.props.handleDeleteClick}>Delete</button>:null}
@@ -443,7 +445,6 @@ defmodule Mix.Tasks.Fushicho do
                         beforeSend: function(req) {
                             req.setRequestHeader('Accept', 'application/json');
                         },
-                        // data:this.state.editingBook,
                         data: JSON.stringify({book:this.state.editingBook}),
                         cache: false,
                         success: function(data) {
@@ -516,7 +517,7 @@ defmodule Mix.Tasks.Fushicho do
         # 修正
         fix = :io_lib.format(contain,
           [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
-          th_content, capitalized
+          th_content, capitalized, label_content
           ])
         IO.binwrite file, fix
 
