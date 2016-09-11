@@ -561,11 +561,15 @@ defmodule Mix.Tasks.Fushicho do
         IO.binwrite file, fix
 
         message = """
-        add ~s to your brunch-config.js
+        add "web/static/js/~s" to your brunch-config.js autoRequire's array
 
-        joinTo: ["js/app.js", "js/~s.js"]
+        modules: {
+          autoRequire: {
+            "js/app.js": ["web/static/js/app", "web/static/js/~s"]
+          }
+        },
         """
-        fixed_message = :io_lib.format(message, [name, name])
+        fixed_message = :io_lib.format(message, [plural, plural])
         IO.puts(fixed_message)
         true
      end
