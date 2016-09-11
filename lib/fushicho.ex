@@ -229,7 +229,12 @@ defmodule Mix.Tasks.Fushicho do
 
         # Reactコードの中身
         # ~sの部分が置換される
+
+        # 大文字開始
         capitalized = String.capitalize(name)
+
+        # 複数形
+        plural = name <> "s"
 
         # 以下の様な<td>の生成
         # <td>{this.props.book.title}</td>
@@ -331,11 +336,11 @@ defmodule Mix.Tasks.Fushicho do
             }
         });
 
-        var BookPanel = React.createClass({
+        var ~sPanel = React.createClass({
             getInitialState: function() {
                 return {
-                    books: [],
-                    editingBook: {
+                    ~s: [],
+                    editing~s: {
                         title:"",
                         category:"",
                     },
@@ -517,7 +522,7 @@ defmodule Mix.Tasks.Fushicho do
         # 修正
         fix = :io_lib.format(contain,
           [capitalized, td_content, name, capitalized, name, name, name, capitalized, name, name, name,
-          th_content, capitalized, label_content, name, name, name, name
+          th_content, capitalized, label_content, name, name, name, name, capitalized, plural, name
           ])
         IO.binwrite file, fix
 
