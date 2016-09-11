@@ -261,6 +261,19 @@ defmodule Mix.Tasks.Fushicho do
             [e, String.capitalize(e), e, e, name, e])
         end)
 
+        # handleChangeの引数
+        # function(title, category)
+        func_args = field_list |> Enum.join(", ")
+        # IO.puts(func_args)
+
+        # handleChangeのsetState用
+        # title: title,
+        # category: category,
+        set_state = field_list
+        |> Enum.map_join("\n                        ", fn e  -> :io_lib.format("~s: ~s,", [e, e]) end)
+
+        IO.puts(set_state)
+
         contain = """
         import React from 'react';
         var ReactDOM = require('react-dom');
