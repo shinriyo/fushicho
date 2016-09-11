@@ -172,7 +172,7 @@ defmodule Mix.Tasks.Fushicho do
     {:ok, file} = File.open css_spinner_path, [:write]
     IO.binwrite file, css_spinner
     message = """
-    you should add them to your app.html.eex,
+    you should add them to your web/templates/lauout/app.html.eex,
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" integrity="sha256-K3Njjl2oe0gjRteXwX01fQD5fkk9JFFBdUHy/h38ggY=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha256-2YQRJMXD7pIAPHiXr0s+vlRWA7GYJEK0ARns7k2sbHY=" crossorigin="anonymous" />
@@ -209,16 +209,17 @@ defmodule Mix.Tasks.Fushicho do
      else
         contain = File.read! model_file
         # ex) field :title, :string
-        reg = ~r/.*field :(.*),/U
-        cap = Regex.scan(reg, contain)
-        # 展開しながら
-        named_reg = ~r/.*feld :(?<fiels>.*?),/U
-        # fieldのキー
-        # Enum.map(cap, fn(x) -> IO.puts Enum.at(x, 1)  end)
-        list  = Enum.map(cap, fn(x) -> Enum.at(x, 1)  end)
-        # filedのlistが生成される
+        field_name_reg = ~r/.*field :(.*),/U # 貪欲ではない
+        field_name_cap = Regex.scan(field_name_reg, contain)
+        field_list  = Enum.map(field_name_cap, fn(x) -> Enum.at(x, 1)  end)
         # これが実際のモデルのフィールドに相当する
-        IO.inspect list
+        IO.inspect field_list
+
+        field_type_reg = ~r/.*field :.*, :(.*)/
+        field_type_cap = Regex.scan(field_type_reg, contain)
+        type_list  = Enum.map(field_type_cap, fn(x) -> Enum.at(x, 1)  end)
+        # これが実際のモデルのフィールドの型に相当する
+        IO.inspect type_list
 
         # 実際にjs
         path = "web/static/js/"
