@@ -42,6 +42,8 @@ defmodule Mix.Tasks.Fushicho do
         .container  { max-width: 1400px; }
     }
     """
+    # css用のフォルダを生成する
+    File.mkdir "web/static/assets/css"
     css = "web/static/assets/css/app.css"
     {:ok, file} = File.open css, [:write]
     IO.binwrite file, contain

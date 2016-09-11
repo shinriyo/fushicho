@@ -19,6 +19,12 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 
  2. fushichoを実行
 
+ 初期化　引数に`--init`
+ `mix fushicho --init`
+
+ Rect用コード生成　引数に単数モデル名
+ `mix fushicho post`
+
 ## 貢献
 
   1. テストするのは`mix test`
