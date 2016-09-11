@@ -286,8 +286,7 @@ defmodule Mix.Tasks.Fushicho do
         # title: title,
         # category: category,
         set_state_content = field_list
-        |> Enum.map_join("\n                        ", fn e  -> :io_lib.format("~s: ~s,", [e, e]) end)
-        # IO.puts(set_state_content)
+        |> Enum.map_join("\n                ", fn e  -> :io_lib.format("~s: ~s,", [e, e]) end)
 
         contain = """
         import React from 'react';
@@ -431,11 +430,10 @@ defmodule Mix.Tasks.Fushicho do
                     message: ''
                 });
             },
-            handleChange: function(title, category) {
+            handleChange: function(~s) {
                 this.setState({
                     editing~s: {
-                        title: title,
-                        category: category,
+                        ~s
                         id: this.state.editing~s.id
                     }
                 });
@@ -555,7 +553,7 @@ defmodule Mix.Tasks.Fushicho do
           editing_content,
           capitalized, plural, plural, capitalized, name, capitalized,
           capitalized_plural, capitalized_plural, capitalized_plural,
-          name, plural, capitalized, name, capitalized, capitalized
+          name, plural, capitalized, name, func_args, capitalized, set_state_content, capitalized
           ])
         IO.binwrite file, fix
 
