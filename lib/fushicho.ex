@@ -544,7 +544,7 @@ defmodule Mix.Tasks.Fushicho do
             },
         });
 
-        ReactDOM.render(<BookPanel url='/api/books/' />, document.getElementById('content'));
+        ReactDOM.render(<~sPanel url='/api/~s/' />, document.getElementById('content'));
         """
         # 修正
         fix = :io_lib.format(contain,
@@ -555,7 +555,8 @@ defmodule Mix.Tasks.Fushicho do
           capitalized_plural, capitalized_plural, capitalized_plural,
           name, plural, capitalized, name, func_args, capitalized, set_state_content, capitalized,
           capitalized, capitalized_plural, plural, capitalized, capitalized, name, capitalized, name, capitalized_plural,
-          name, capitalized, name, capitalized_plural, capitalized, capitalized, name, capitalized, capitalized_plural
+          name, capitalized, name, capitalized_plural, capitalized, capitalized, name, capitalized, capitalized_plural,
+          capitalized, plural
           ])
         IO.binwrite file, fix
 
